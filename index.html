@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>AI Image Editor</h1>
+            <p>Upload an image and let AI transform it</p>
+        </header>
+
+        <div class="upload-section" id="uploadSection">
+            <div class="upload-zone" id="uploadZone">
+                <svg class="upload-icon" viewBox="0 0 24 24">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M13,13V7H16.5L13,13Z" />
+                </svg>
+                <p>Tap to upload an image</p>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+            </div>
+        </div>
+
+        <div class="editor-section" id="editorSection" style="display: none;">
+            <div class="image-container">
+                <img id="originalImage" alt="Original image">
+                <canvas id="canvas" style="display: none;"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="preset-filters">
+                    <button class="filter-btn" data-instruction="Make the sky blue">Blue Sky</button>
+                    <button class="filter-btn" data-instruction="Enhance the colors">Vibrant</button>
+                    <button class="filter-btn" data-instruction="Make it black and white">B&W</button>
+                    <button class="filter-btn" data-instruction="Apply vintage filter">Vintage</button>
+                    <button class="filter-btn" data-instruction="Increase contrast">Contrast</button>
+                    <button class="filter-btn" data-instruction="Make it warmer">Warm</button>
+                </div>
+                
+                <div class="custom-input">
+                    <textarea id="customInstruction" placeholder="Or type custom instructions..."></textarea>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="applyBtn" class="primary-btn">Apply Effect</button>
+                    <button id="downloadBtn" class="secondary-btn" style="display: none;">Download</button>
+                    <button id="newImageBtn" class="secondary-btn">New Image</button>
+                    <button id="showRawBtn" class="secondary-btn" style="display: none;">Show Raw Response</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Processing your image...</p>
+        </div>
+
+        <div class="raw-response-modal" id="rawResponseModal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h3>Raw API Response</h3>
+                <pre id="rawResponseContent"></pre>
+                <button id="copyRawBtn" class="secondary-btn">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
