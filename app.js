@@ -88,7 +88,7 @@ class ImageEditor {
         this.showLoading(true);
         
         try {
-            const response = await fetch('https://9000-firebase-studio-1755789802422.cluster-73qgvk7hjjadkrjeyexca5ivva.cloudworkstations.dev/api/manipulate', {
+            const response = await fetch({process.env.url}, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
